@@ -4,7 +4,6 @@ import { Feature, OptForm } from '../components'
 import Jumbotron from '../containers/jumbotron'
 import Header from '../containers/header'
 import styled from 'styled-components'
-import Disqus from "disqus-react"
 import YouTube from 'react-youtube';
 import { useParams } from 'react-router-dom';
 
@@ -14,13 +13,6 @@ export default function Mome() {
 
 
   const [magnetData, setMagnetData] = useState(null);
-
-    const disqusShortname = "narutopia-netlify-app"
-    const disqusConfig = {
-      url: "https://trailerpeak.onrender.com",
-      identifier: "article-id",
-      title: "Title of Your Article"
-    }
   const { name } = useParams();
 
   useEffect(() => {
@@ -49,11 +41,6 @@ export default function Mome() {
       <YouTube videoId={magnetData} />
   
 
-  <Disqus.DiscussionEmbed
-          shortname={disqusShortname}
-          config={disqusConfig}
-        />
-    
 
 
 

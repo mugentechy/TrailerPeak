@@ -9,7 +9,7 @@
     "@mui/material": "^6.4.1",
     "@reduxjs/toolkit": "^2.5.1",
     "axios": "^1.7.9",
-    "disqus-react": "^1.1.5",
+
     "fs": "^0.0.1-security",
     "js-cookie": "^3.0.5",
     "normalize.css": "^8.0.1",
