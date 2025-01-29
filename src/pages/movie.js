@@ -87,15 +87,11 @@ export default function Movie() {
       <MovieDetails>
         {/* Video Section */}
         <VideoSection>
-          {loading ? (
-            <Skeleton height={390} width="100%" />
-          ) : error ? (
-            <p style={{ color: 'red' }}>Error: {error}</p>
-          ) : magnetData ? (
-            <YouTube videoId={magnetData} opts={opts} />
-          ) : (
-            <p>No video available.</p>
-          )}
+       {loading ? (
+        <Skeleton height={390} width="100%" />
+      ) : (
+        <YouTube videoId={magnetData} opts={opts} />
+      )}
 
           {/* Reaction Icons */}
           <Reactions>
