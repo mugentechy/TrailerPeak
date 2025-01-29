@@ -16,6 +16,7 @@ export default function Movie() {
   const { id, type, name } = useParams();
   const [similarMovies, setSimilarMovies] = useState([]);
   const [movieDetails, setMovieDetails] = useState([]);
+  const [movieVideo, setMovieVideo] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -46,6 +47,30 @@ export default function Movie() {
   }, [id, type]);
 
 
+
+
+  useEffect(() => {
+    async function fetchMovieVideo() {
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${API_KEY}`
+        );
+        setMovieVideo(response.data.results[0].key);
+      } catch (error) {
+        console.error('Error fetching similar movies:', error);
+      }
+    }
+
+    if (id) {
+      fetchMovieVideo();
+    }
+  }, [id, type]);
+
+
+
+console.log(movieDetails)  
+
+
   useEffect(() => {
     async function fetchMovieDetails() {
       try {
@@ -64,7 +89,6 @@ export default function Movie() {
   }, [id, type]);
 
 
-  console.log(movieDetails)
 
 
   const opts = {
@@ -90,7 +114,7 @@ export default function Movie() {
        {loading ? (
         <Skeleton height={390} width="100%" />
       ) : (
-        <YouTube videoId={magnetData} opts={opts} />
+        <YouTube videoId={movieVideo} opts={opts} />
       )}
 
           {/* Reaction Icons */}
@@ -106,8 +130,39 @@ export default function Movie() {
 
         {/* Movie Details Sidebar */}
         <Sidebar>
-          <Title>{name || <Skeleton width={200} />}</Title>
+
+<div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
+  {/* Image with smaller size */}
+  <img
+    src={`https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`}
+    alt={movieDetails.title}
+    style={{ width: '150px', height: 'auto' }} // Adjust size as needed
+  />
+
+ 
+  <div>
+    <Title>{movieDetails.title || movieDetails.name }</Title>
+
+
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '5px' }}>
+      {movieDetails?.genres?.map((genre, index) => (
+        <span key={genre.id}>
+          {genre.name}
+          {index < movieDetails.genres.length - 1 && " | "}
+        </span>
+      ))}
+    </div>
+  </div>
+</div>
+
+
+  {/* Styled horizontal rule */}
+  <hr style={{ border: '1px solid #ddd', margin: '20px 0' }} />
+
+ <Title> Official Trailer</Title>
+        
           <SubTitle>
+
             {loading ? <Skeleton count={3} /> : movieDetails.overview}
           </SubTitle>
         </Sidebar>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { OptForm } from '../components';
 import '../assets/nav.css';
-
+import { FcFilmReel } from "react-icons/fc";
 const API_KEY = '64422b19ff6d242b3851b117c783ec08';  // Replace with actual API key
 
 const Nav = () => {
@@ -38,7 +38,12 @@ const Nav = () => {
   return (
     <div className={`nav ${show && 'nav_black'}`}>
       <div className="nav-container">
-        <a href="/" className="link">TrailerPeak</a>
+   
+       <a href="/" className="logo">
+
+  
+  TrailerPeak
+</a>
 
         <div className="nav-links">
           <a href="/series" className="link">Tv Shows</a>
@@ -54,11 +59,6 @@ const Nav = () => {
           <OptForm.Button />
         </OptForm>
 
-        <img
-          className="nav_avatar"
-          src="https://res.cloudinary.com/doammcpie/image/upload/v1618310958/2_vohnwl.png"
-          alt="naruto logo"
-        />
       </div>
     </div>
   );

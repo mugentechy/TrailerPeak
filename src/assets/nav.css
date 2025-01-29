@@ -44,11 +44,32 @@
   cursor: pointer;
 }
 
-
+.nav_logo{
+    height: 40px;
+  cursor: pointer;
+}
 
 .link {
   color: white;
   text-decoration: none;
   margin-right: 30px;
   cursor: pointer;
+}
+
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff0000;
+  margin-right: 30px;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.logo:hover {
+  color: #cc0000;
 }
