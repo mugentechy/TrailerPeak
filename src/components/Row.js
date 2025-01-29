@@ -26,7 +26,10 @@ const Row = ({ title, fetchUrl, isLargeRow, type }) => {
   };
 
   return (
+    <>
+     <h2>{title}</h2>
 <div className='row_posters'>
+
   {movies?.map((movie) => (
     <div
       key={movie.id}
@@ -51,7 +54,7 @@ const Row = ({ title, fetchUrl, isLargeRow, type }) => {
     </div>
   ))}
 </div>
-
+</>
   );
 };
 

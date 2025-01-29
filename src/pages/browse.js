@@ -14,7 +14,7 @@ function Browse() {
   return (
     
     <>
-<div className="">
+<div className="margin-align">
   <Row title="Airing Today" fetchUrl={requests.airing.url} type={requests.airing.type} />
 </div>
 <Row title="Upcoming" fetchUrl={requests.upcoming.url} type={requests.upcoming.type} />
