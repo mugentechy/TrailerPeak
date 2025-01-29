@@ -7,6 +7,7 @@ import { Grid, Typography, Tabs, Tab, Grow, Box } from '@mui/material'
 
 
 
+
 function Series() {
   const [value, setValue] = useState(0)
   const handleChange = (event, newValue) => {
@@ -17,7 +18,7 @@ function Series() {
     <>
       <div style={{ marginBottom: '16px' }}>
 
- <Column title='Tv Series' fetchUrl={requests.latest} />
+ <Column title='Tv Series' fetchUrl={requests.discoverTv.url} />
         </div>
 
 

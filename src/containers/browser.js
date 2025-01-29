@@ -11,7 +11,7 @@ export default function BrowserContainer({ slides }) {
   return (
     <>
      
-      <Nav />
+ 
       <Banner />
       <Browse />
     </>

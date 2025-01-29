@@ -7,6 +7,7 @@ const requests = {
   latest: { url: `/tv/top_rated?api_key=${API_KEY}&language=en-US`, type: "tv" },
   trend: { url: `/trending/tv/week?api_key=${API_KEY}&language=en-US`, type: "tv" },
   airing: { url: `/tv/airing_today?api_key=${API_KEY}&language=en-US`, type: "tv" },
+  discoverTv: { url: `/discover/tv?api_key=${API_KEY}&language=en-US`, type: "tv" },
 };
 
 

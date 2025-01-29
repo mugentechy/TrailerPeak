@@ -17,7 +17,7 @@ function Movies() {
   return (
     <>
 
-        <Column title='Movies' fetchUrl={requests.upcoming} />
+        <Column title='Movies' fetchUrl={requests.upcoming.url} />
 
     
 
