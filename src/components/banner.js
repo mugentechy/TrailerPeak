@@ -8,8 +8,8 @@ const Banner = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get(requests.upcoming)
-      console.log(request.data)
+      const request = await axios.get(requests.upcoming.url)
+
       setMovie(
         request.data.results[
           Math.floor(Math.random() * request.data.results.length)
