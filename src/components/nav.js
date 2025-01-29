@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/nav.css';
-import useAuthListener from '../hooks/use-auth-listener'
+
 
 const Nav = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-const { user } = useAuthListener();
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,15 +19,6 @@ const { user } = useAuthListener();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleSignOut = async () => {
-    try {
-      await logout();
-      navigate('/signin');
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
 
 
@@ -51,9 +42,9 @@ const { user } = useAuthListener();
 
       <div className='list'>
 
-        <img className='list-img' src={user?.photoURL} alt='naruto logo' />
-        <p>{user?.displayName}</p>
-        <p className={'link'} onClick={() => handleSignOut()}>}>
+        <img className='list-img'  alt='naruto logo' />
+        <p></p>
+        <p className={'link'}>
           SignOut
         </p>
       </div>

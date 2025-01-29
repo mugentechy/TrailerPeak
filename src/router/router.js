@@ -5,66 +5,32 @@ import '../app.css'
 import Nav from '../components/nav'
 import Footer from '../containers/footer'
 import { BrowserRouter, Routes, Route, Outlet,useNavigate } from 'react-router-dom'
-import { Home, Movie,Movies,Series, Browse, Signin, Signup } from '../pages'
-import useAuthListener from "../hooks/use-auth-listener";
-import * as ROUTES from '../constants/routes'
-
+import {  Movie,Movies,Series, Browse, NotFound } from '../pages'
+import Layout from '../components/Layout'; 
 import BrowserContainer from '../containers/browser'
 import { useDispatch } from 'react-redux'
 
+
 export default function Router() {
- const dispatch = useDispatch()
- const { user, loading } = useAuthListener(); 
-
-
-
   return (
-
- <BrowserRouter>
+    <BrowserRouter>
       <Routes>
-        {/* Define routes and their corresponding components */}
-      <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route
-          path={ROUTES.BROWSE}
-          element={
-            <>
-              <Nav />
-              <BrowserContainer  />
-            </>
-          }
-        />
-          <Route
-          path={`${ROUTES.MOVIE}/:name`}
-          element={
-            <>
-              <Nav />
-              <Movie  />
-            </>
-          }
-        />
-                  <Route
-          path={ROUTES.NARUTO}
-          element={
-            <>
-              <Nav />
-              <Movies  />
-            </>
-          }
-        />
-                  <Route
-          path={ROUTES.SHIPPUDEN}
-          element={
-            <>
-              <Nav />
-              <Series  />
-            </>
-          }
-        />
-      </Routes>
-      <Footer /> {/* Render Footer component */}
-    </BrowserRouter>
+        {/* Use a Layout component to wrap routes with common elements (e.g., Nav) */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<BrowserContainer />} />
+          <Route path="movie/:name" element={<Movie />} />
+          <Route path="movies" element={<Movies />} />
+          <Route path="series" element={<Series />} />
+          <Route path="browse" element={<Browse />} />
+        </Route>
 
-  )
+        {/* Handle 404 - Not Found */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
+      {/* Footer is rendered outside the Routes to appear on all pages */}
+      <Footer />
+    </BrowserRouter>
+  );
 }
+
