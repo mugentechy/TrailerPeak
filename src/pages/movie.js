@@ -111,7 +111,7 @@ export default function Movie() {
         </Sidebar>
       </MovieDetails>
 
-      {/* Use Row component for Similar Movies and Recommendations */}
+ 
       <Row title="Recommended Movies" fetchUrl={`https://api.themoviedb.org/3/${type}/${id}/recommendations?api_key=${API_KEY}`} type={type} />
       <Row title="Similar Movies" fetchUrl={`https://api.themoviedb.org/3/${type}/${id}/similar?api_key=${API_KEY}`} type={type} />
       

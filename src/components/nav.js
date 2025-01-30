@@ -9,6 +9,7 @@ const Nav = () => {
   const [show, setShow] = useState(false);
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
+  const [searchType, setSearchType] = useState('movie'); 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,12 +25,13 @@ const Nav = () => {
 
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`
+        `https://api.themoviedb.org/3/search/${searchType}?api_key=${API_KEY}&query=${query}`
       );
       const data = await response.json();
       console.log(data.results)
       
-      navigate('/search', { state: { results: data.results, query } });
+      navigate('/search', { state: { results: data.results, query: query, type: searchType } });
+
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
@@ -50,13 +52,21 @@ const Nav = () => {
           <a href="/movies" className="link">Movies</a>
         </div>
 
-        <OptForm className="nav-search" onSubmit={handleSearch}>
+    <OptForm className="nav-search" onSubmit={handleSearch}>
+          <OptForm.Select 
+            value={searchType} 
+            onChange={(e) => setSearchType(e.target.value)}
+          >
+            <option value="movie">Movies</option>
+            <option value="tv">TV Shows</option>
+          </OptForm.Select>
+
           <OptForm.Input
             placeholder="Search..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <OptForm.Button />
+          <OptForm.Button></OptForm.Button>
         </OptForm>
 
       </div>

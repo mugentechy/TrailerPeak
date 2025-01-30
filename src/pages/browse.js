@@ -13,17 +13,18 @@ function Browse() {
 
   return (
     
-    <>
-<div className="margin-align">
+  
+    <div className="background">
+
   <Row title="Airing Today" fetchUrl={requests.airing.url} type={requests.airing.type} />
-</div>
+
 <Row title="Upcoming" fetchUrl={requests.upcoming.url} type={requests.upcoming.type} />
 <Row title="Popular" fetchUrl={requests.popular.url} type={requests.popular.type} />
 <Row title="Trending" fetchUrl={requests.trend.url} type={requests.trend.type} />
 <Row title="Top Rated" fetchUrl={requests.latest.url} type={requests.latest.type} />
 
 
-    </>
+    </div>
   )
 }
 
