@@ -4,7 +4,6 @@ import YouTube from 'react-youtube';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { fetchMagnetData } from '../features/magnet/magnetActions';
-import ModalDialog from '../components/ModalDialog';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Row from '../components/Row'; // Import Row component

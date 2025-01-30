@@ -18,7 +18,7 @@ function Series() {
     <>
       <div style={{ marginBottom: '16px' }}>
 
- <Column title='Tv Series' fetchUrl={requests.discoverTv.url} />
+ <Column title='Tv Series' fetchUrl={requests.discoverTv.url} type='tv'/>
         </div>
 
 
