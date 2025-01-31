@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { OptForm } from '../components';
+import { FaBars, FaTimes, FaSearch } from 'react-icons/fa';
 import '../assets/nav.css';
-import { FcFilmReel } from "react-icons/fc";
-const API_KEY = '64422b19ff6d242b3851b117c783ec08';  // Replace with actual API key
+
+const API_KEY = '64422b19ff6d242b3851b117c783ec08'; // Replace with actual API key
 
 const Nav = () => {
   const [show, setShow] = useState(false);
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
-  const [searchType, setSearchType] = useState('movie'); 
+  const [searchType, setSearchType] = useState('movie');
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,49 +29,62 @@ const Nav = () => {
         `https://api.themoviedb.org/3/search/${searchType}?api_key=${API_KEY}&query=${query}`
       );
       const data = await response.json();
-      console.log(data.results)
-      
-      navigate('/search', { state: { results: data.results, query: query, type: searchType } });
+      console.log(data.results);
 
+      navigate('/search', { state: { results: data.results, query: query, type: searchType } });
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
   };
 
   return (
-    <div className={`nav ${show && 'nav_black'}`}>
+    <nav className={`nav ${show ? 'nav_black' : ''}`}>
       <div className="nav-container">
-   
-       <a href="/" className="logo">
+        {/* Logo */}
+      <button className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+        </button>
+        <a href="/" className="logo">TrailerPeak</a>
 
-  
-  TrailerPeak
-</a>
+        {/* Hamburger Menu Icon (Mobile) */}
+        
 
-        <div className="nav-links">
-          <a href="/series" className="link">Tv Shows</a>
-          <a href="/movies" className="link">Movies</a>
+        {/* Navigation Links */}
+        <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
+          <a href="/series" className="link" onClick={() => setMenuOpen(false)}>TV Shows</a>
+          <a href="/movies" className="link" onClick={() => setMenuOpen(false)}>Movies</a>
+                {/* Search Bar */}
+        <form className="nav-search" onSubmit={handleSearch}>
+          <div className="opt-select-container">
+            <select
+              className="opt-select"
+              value={searchType}
+              onChange={(e) => setSearchType(e.target.value)}
+            >
+              <option value="movie">Movies</option>
+              <option value="tv">TV Shows</option>
+            </select>
+          </div>
+
+          <div className="opt-input-container">
+            <input
+              type="text"
+              className="opt-input"
+              placeholder="Search IMDb"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+
+          <button type="submit" className="opt-button">
+            <FaSearch size={16} />
+          </button>
+        </form>
         </div>
 
-    <OptForm className="nav-search" onSubmit={handleSearch}>
-          <OptForm.Select 
-            value={searchType} 
-            onChange={(e) => setSearchType(e.target.value)}
-          >
-            <option value="movie">Movies</option>
-            <option value="tv">TV Shows</option>
-          </OptForm.Select>
-
-          <OptForm.Input
-            placeholder="Search..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <OptForm.Button></OptForm.Button>
-        </OptForm>
 
       </div>
-    </div>
+    </nav>
   );
 };
 
