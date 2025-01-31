@@ -24,10 +24,11 @@ export default function Router() {
           <Route path="series" element={<Series />} />
           <Route path="browse" element={<Browse />} />
               <Route path="/search" element={<SearchResults />} />
+               <Route path="*" element={<NotFound />} />
         </Route>
 
-        {/* Handle 404 - Not Found */}
-        <Route path="*" element={<NotFound />} />
+    
+       
       </Routes>
 
       {/* Footer is rendered outside the Routes to appear on all pages */}
