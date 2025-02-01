@@ -1,8 +1,15 @@
+/* Row Container */
 .row {
   color: white;
   margin-left: 20px;
   margin-right: 20px;
   position: relative;
+}
+
+.banner_title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .row_container {
@@ -11,6 +18,7 @@
   position: relative;
 }
 
+/* Scroll Buttons */
 .scroll_button {
   background: rgba(0, 0, 0, 0.6);
   border: none;
@@ -31,17 +39,18 @@
 }
 
 .left {
-  left: 0;
+  left: -10px;
 }
 
 .right {
-  right: 0;
+  right: -10px;
 }
 
+/* Posters Container */
 .row_posters {
   display: flex;
   overflow-y: hidden;
-  overflow-x: scroll;
+  overflow-x: hidden;
   padding: 20px;
   scroll-behavior: smooth;
 }
@@ -50,50 +59,66 @@
   display: none;
 }
 
+/* Poster Container */
 .row_poster_container {
   position: relative;
   cursor: pointer;
   transition: transform 450ms;
-}
-
-.row_poster {
-  object-fit: cover;
-  max-height: 250px;
+  flex: 0 0 auto;
   margin-right: 10px;
+  width: 200px; /* Fixed width for consistency */
+  overflow: hidden; /* Ensure hover overlay doesn't exceed container */
   border-radius: 10px;
-  transition: transform 450ms;
 }
 
-.row_poster_container:hover .row_poster {
+.row_poster_container:hover {
   transform: scale(1.08);
 }
 
+.row_poster {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.row_posterLarge {
+  width: 250px; /* Larger posters for featured rows */
+}
+
+/* Hover Overlay */
 .row_poster_overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 5px;
+  padding: 10px;
   color: white;
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.2));
-  border-radius: 10px;
+    background: rgba(0, 0, 0, 0.7);
+  border-radius: 0 0 8px 8px;
+  max-height: 100%; /* Ensures it stays within the poster */
+  overflow: hidden; /* Prevents text from overflowing */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transform: translateY(100%);
 }
 
 .row_poster_container:hover .row_poster_overlay {
   opacity: 1;
-  transform: translateY(-5px);
+  transform: translateY(0);
 }
 
 .row_poster_overlay h3 {
-  font-size: 18px;
+  font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
 .row_poster_overlay p {
-  font-size: 14px;
+  font-size: 0.9rem;
   margin: 2px 0;
 }
 
@@ -109,74 +134,183 @@
   color: gold;
 }
 
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .row {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 
+  .banner_title {
+    font-size: 1.2rem;
+  }
 
+  .row_poster_container {
+    width: 150px;
+  }
 
+  .row_posterLarge {
+    width: 180px;
+  }
 
+  .row_poster_overlay h3 {
+    font-size: 1rem;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.search_results {
-  padding: 20px;
+  .row_poster_overlay p {
+    font-size: 0.8rem;
+  }
 }
 
+@media (max-width: 480px) {
+  .banner_title {
+    font-size: 1rem;
+  }
+
+  .row_poster_container {
+    width: 120px;
+  }
+
+  .row_posterLarge {
+    width: 140px;
+  }
+
+  .row_poster_overlay h3 {
+    font-size: 0.9rem;
+  }
+
+  .row_poster_overlay p {
+    font-size: 0.7rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Search Results Container */
+.search_results {
+  padding: 20px;
+  margin-top: 5rem;
+}
+
+.search_title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Grid Container */
 .grid_container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
   gap: 16px;
   justify-content: center;
+  padding: 0 20px;
 }
 
+/* Grid Item */
 .grid_item {
   position: relative;
   cursor: pointer;
   transition: transform 0.3s ease;
+  overflow: hidden; /* Ensure hover overlay doesn't exceed container */
+  border-radius: 8px;
 }
 
 .grid_item:hover {
   transform: scale(1.05);
 }
 
+/* Poster Image */
 .grid_poster {
   width: 100%;
   height: auto;
   border-radius: 8px;
+  display: block;
 }
 
+/* Hover Overlay */
 .grid_overlay {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
   background: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 8px;
   text-align: center;
   border-radius: 0 0 8px 8px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.grid_item:hover .grid_overlay {
+  transform: translateY(0);
+}
+
+/* Overlay Text */
+.grid_overlay h3 {
+  font-size: 1.2rem;
+  margin: 0 0 8px;
+}
+
+.grid_overlay p {
+  font-size: 0.9rem;
+  margin: 4px 0;
 }
 
 .rating {
   font-weight: bold;
   color: #f5c518; /* IMDb gold rating color */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .search_title {
+    font-size: 2rem;
+  }
+
+  .grid_container {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .grid_overlay h3 {
+    font-size: 1rem;
+  }
+
+  .grid_overlay p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search_title {
+    font-size: 1.5rem;
+  }
+
+  .grid_container {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .grid_overlay h3 {
+    font-size: 0.9rem;
+  }
+
+  .grid_overlay p {
+    font-size: 0.7rem;
+  }
 }

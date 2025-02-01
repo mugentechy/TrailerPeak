@@ -7,11 +7,11 @@ export default function NotFound() {
   return (
     <div className="not-found">
       <div className="diagonal-lines"></div> {/* Background effect */}
-      <h2>Oops! Well, this is awkward...</h2>
+      <h2>Oops! Are you lost buddy...</h2>
 
     
       <img src="/images/deadpool.png" alt="Deadpool" className="not-found-img" />
-        <p>It looks like you're lost buddy.. you should probably leave before Disney finds out I'm here</p>
+        <p>You should probably leave before Disney finds out I'm here</p>
       <Link to="/" className="home-button">
         Take Me Home (Country Roads 🎵)
       </Link>

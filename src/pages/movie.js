@@ -7,6 +7,7 @@ import { fetchMagnetData } from '../features/magnet/magnetActions';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Row from '../components/Row'; // Import Row component
+import FeatureVideos from '../components/FeatureVideos'; // Import the new FeatureVideos component
 import { Container, Title, SubTitle, MovieDetails, VideoSection, Sidebar, Reactions } from '../assets/feature';
 
 const API_KEY = '64422b19ff6d242b3851b117c783ec08';
@@ -15,9 +16,8 @@ export default function Movie() {
   const dispatch = useDispatch();
   const { id, type } = useParams();
   const [movieDetails, setMovieDetails] = useState({});
-  const [movieVideo, setMovieVideo] = useState('');
-  const [openDialog, setOpenDialog] = useState(false);
-
+  const [movieVideos, setMovieVideos] = useState([]);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const { loading } = useSelector((state) => state.magnet);
 
   // Fetch Movie Details
@@ -38,23 +38,33 @@ export default function Movie() {
     }
   }, [id, type]);
 
-  // Fetch Movie Video
+  // Fetch Movie Videos
   useEffect(() => {
-    async function fetchMovieVideo() {
+    async function fetchMovieVideos() {
       try {
         const response = await axios.get(
           `https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${API_KEY}`
         );
-        setMovieVideo(response.data.results[0]?.key || '');
+        setMovieVideos(response.data.results);
       } catch (error) {
-        console.error('Error fetching movie video:', error);
+        console.error('Error fetching movie videos:', error);
       }
     }
 
     if (id) {
-      fetchMovieVideo();
+      fetchMovieVideos();
     }
   }, [id, type]);
+
+  const handleVideoEnd = () => {
+    if (currentVideoIndex < movieVideos.length - 1) {
+      setCurrentVideoIndex(currentVideoIndex + 1);
+    }
+  };
+
+  const handleVideoClick = (index) => {
+    setCurrentVideoIndex(index);
+  };
 
   const opts = {
     height: '390',
@@ -67,7 +77,15 @@ export default function Movie() {
       <MovieDetails>
         {/* Video Section */}
         <VideoSection>
-          {loading ? <Skeleton height={390} width="100%" /> : <YouTube videoId={movieVideo} opts={opts} />}
+          {loading ? (
+            <Skeleton sx={{ backgroundColor: '#111' }} height={390} width="100%" />
+          ) : (
+            <YouTube
+              videoId={movieVideos[currentVideoIndex]?.key}
+              opts={opts}
+              onEnd={handleVideoEnd}
+            />
+          )}
 
           {/* Reaction Icons */}
           <Reactions>
@@ -110,10 +128,13 @@ export default function Movie() {
         </Sidebar>
       </MovieDetails>
 
- 
+      {/* Feature Videos Section */}
+      <FeatureVideos videos={movieVideos} onVideoClick={handleVideoClick} />
+
+      {/* Recommended and Similar Movies */}
       <Row title="Recommended Movies" fetchUrl={`https://api.themoviedb.org/3/${type}/${id}/recommendations?api_key=${API_KEY}`} type={type} />
       <Row title="Similar Movies" fetchUrl={`https://api.themoviedb.org/3/${type}/${id}/similar?api_key=${API_KEY}`} type={type} />
-      
     </Container>
   );
 }
+

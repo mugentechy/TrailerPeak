@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from '../utils/axios';
 import requests from '../utils/requests';
 import '../assets/banner.css';
+import { FaStar } from "react-icons/fa";
 
 // Import Swiper components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,6 +14,8 @@ import 'swiper/css/pagination';
 const Banner = () => {
   const [movies, setMovies] = useState([]);
 
+
+console.log(movies)
   useEffect(() => {
     async function fetchData() {
       const request = await axios.get(requests.upcoming.url);
@@ -49,8 +52,8 @@ const Banner = () => {
             <div className='banner_contents'>
               <h1 className='banner_title'>{movie?.title || movie?.original_name}</h1>
               <div className='banner_buttons'>
-                <button className='banner_button'>Play</button>
-                <button className='banner_button'>My List</button>
+                <div className='banner_button'>{movie?.release_date}</div>
+                <div className='banner_button'>{movie?.vote_average} <FaStar/></div>
               </div>
               <h1 className='banner_description'>{truncate(movie?.overview, 150)}</h1>
             </div>

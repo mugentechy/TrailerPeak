@@ -27,17 +27,25 @@ export const MovieDetails = styled.div`
   gap: 20px;
   @media (min-width: 768px) {
     flex-direction: row;
+    align-items: stretch; /* Ensure both child elements stretch to the same height */
   }
 `;
+
 
 export const VideoSection = styled.div`
   flex: 2;
   position: relative;
+  max-height: 115vh;
+  height: 100%;
+  
 `;
 
 export const Sidebar = styled.div`
   flex: 1;
   padding: 10px;
+  height: 100%;
+  overflow-y: auto; /* Enable scroll when content is too long */
+   max-height: 115vh;
 `;
 
 export const Title = styled.h1`

@@ -36,6 +36,7 @@ const Column = ({ title, fetchUrl, isLargeRow,type }) => {
 
 
   return (
+    
     <div className='row'>
       
       <div className='margin-top'>
@@ -43,15 +44,15 @@ const Column = ({ title, fetchUrl, isLargeRow,type }) => {
         {movies?.map((movie) => (
           <div
             key={movie.id}
-            className="row_poster_container"
+            className="grid_item"
             onClick={() => handleMovieClick(movie)}
           >
             <img
-                className="row_poster"
+                className="grid_poster"
                 src={`${base_url}${movie.poster_path}`}
                 alt={movie.name || movie.title}
               />
-              <div className="row_poster_overlay">
+              <div className="grid_overlay">
                 <h3>{movie.name || movie.title}</h3>
                 <p>{movie.release_date}</p>
                 <p className="rating">{movie.vote_average}</p>
